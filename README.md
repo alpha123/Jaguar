@@ -1,15 +1,15 @@
-0 Regexes
----------
-0 Try-catch blocks
-------------------
-No browser sniffing
--------------------
-Only 3kb (minified and gzipped)
--------------------------------
+**0 Regexes**
 
-Jaguar is a new standalone CSS selector engine developed for the [Shrike](https://github.com/alpha123/Shrike) JavaScript library, which basically supersedes [Puma](https://github.com/alpha123/Puma).
+**0 Try-catch blocks**
 
-Jaguar was designed from the ground up for speed and extensibility, though I'll freely admit it's not as extensible as Puma. A fast method for matching elements with against a CSS selector -- commonly used for event delegation -- is built-in and often beats the browser's native `matchesSelector` implementation.
+**No browser sniffing**
+
+**Only 3kb (minified and gzipped)**
+
+
+Jaguar is a new standalone CSS selector engine developed for the [Shrike](https://github.com/alpha123/Shrike) JavaScript library, and basically supersedes [Puma](https://github.com/alpha123/Puma).
+
+Jaguar was designed from the ground up for speed and extensibility, though I'll admit it's not as extensible as Puma (because of that and the Puma Compiler, I'm still developing Puma). A fast method for matching elements with against a CSS selector -- commonly used for event delegation -- is built-in and often beats the browser's native `matchesSelector` implementation.
 
 Jaguar supports most of the CSS3 selectors, including the more esoteric selectors such as `:root > div[rel|=junkfood] ~ p:nth-last-of-type(5n-7)` (if anyone actually uses that, I'd love to know).
 
