@@ -39,6 +39,12 @@ function (array, obj) {
         newArray[i] = func(array[i]);
     
     return newArray;
+}, fixAttrs = Jaguar.fixAttributes = {
+    'class': 'className',
+    'for': 'htmlFor',
+    'html': 'innerHTML',
+    'style': function (elem) { return elem.style.cssText; },
+    'text': function (elem) { return elem.innerText || elem.textContent || ''; }
 };
 
 Jaguar.features = features;
@@ -48,8 +54,8 @@ Jaguar.indexOf = indexOf;
 
 Jaguar.fixAttributes = {'for': 'htmlFor', 'class': 'className'};
 function getAttribute(elem, attr) {
-    if (Jaguar.fixAttributes[attr]) {
-        var value = elem[Jaguar.fixAttributes[attr]];
+    if (fixAttrs[attr]) {
+        var value = typeof fixAttrs[attr] == 'function' ? fixAttrs[attr](elem) : elem[fixAttrs[attr]];
         if (attr == 'class' && !value)
             value = null;
         return value;
@@ -60,6 +66,8 @@ Jaguar.getAttribute = getAttribute;
 
 Jaguar.cache = [];
 Jaguar.cacheSize = 50;
+
+Jaguar.surpressErrors = false;
 
 Jaguar.tokenize = function (selector) {
     selector += '';
@@ -339,8 +347,11 @@ Jaguar.evaluateSearch = function (objects, context) {
             bad = true;
     }
     
-    if (bad)
+    if (bad) {
+        if (!Jaguar.surpressErrors)
+            throw new Error('Bad selector');
         elems = [];
+    }
     
     return elems;
 };
