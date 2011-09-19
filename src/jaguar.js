@@ -128,9 +128,8 @@ Jaguar.tokenize = function (selector) {
         else {
             acc = '';
             tested = test(current);
-            while (current && current != ' ' && current != '"' && current != "'" &&
-            current != '`' && ((tested && test(current)) || (!tested && !test(current)))
-            && !single[current]) {
+            while (current && current != ' ' && !quotes[current] && ((tested && test(current)) ||
+            (!tested && !test(current))) && !single[current]) {
                 acc += current;
                 if (current == '=') {
                     tokens.push(token(op, acc));
@@ -214,8 +213,7 @@ Jaguar.parse = function (selector) {
 
 Jaguar.search = function (selector, context) {
     context = context || document;
-    if (!selector || typeof selector != 'string' || !context.nodeType ||
-    (context.nodeType != 1 && context.nodeType != 9))
+    if (!selector || typeof selector != 'string' || (context.nodeType != 1 && context.nodeType != 9))
         return [];
     
     var parsed = Jaguar.parse(selector), i = 0, l = parsed.length, r = 0, len,
@@ -342,7 +340,7 @@ Jaguar.evaluateSearch = function (objects, context) {
     
     if (obj.combinator) {
         if (Jaguar.combinators[obj.combinator])
-            elems = Jaguar.combinators[obj.combinator](elems, objects.slice(0, objects.length - 1));
+            elems = Jaguar.combinators[obj.combinator](elems, objects.slice(0, -1));
         else
             bad = true;
     }
@@ -357,7 +355,7 @@ Jaguar.evaluateSearch = function (objects, context) {
 };
 
 Jaguar.match = function (elem, selector) {
-    if (!elem || elem.nodeType != 1 || !selector || typeof selector != 'string')
+    if (!elem || elem.nodeType != 1 || typeof selector != 'string')
         return false;
     
     var parsed = Jaguar.parse(selector), result = false, i = 0, l = parsed.length;
@@ -390,7 +388,6 @@ Jaguar.evaluateMatch = function (objects, elem) {
     
     if (obj.pseudos.length)
         matches = matches && matchAll(obj.pseudos, Jaguar.pseudos, elem);
-    
     
     if (obj.combinator) {
         if (Jaguar.matchCombinators[obj.combinator])
