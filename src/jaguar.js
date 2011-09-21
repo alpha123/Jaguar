@@ -268,7 +268,7 @@ function matchAll(array, funcs, elem) {
         if (func)
             result = result && func.apply(funcs, elem.concat(array[i].args));
         else
-            return;
+            return 'Unknown function ' + array[i].name;
     }
     return result;
 }
@@ -327,8 +327,8 @@ Jaguar.evaluateSearch = function (objects, context) {
         
         elems = filter(elems, function (e) {
             var match = matchAll(array, funcs, e);
-            if (match === undefined)
-                bad = true;
+            if (typeof match == 'string')
+                bad = match;
             return match;
         });
     }
@@ -343,12 +343,12 @@ Jaguar.evaluateSearch = function (objects, context) {
         if (Jaguar.combinators[obj.combinator])
             elems = Jaguar.combinators[obj.combinator](elems, objects.slice(0, -1));
         else
-            bad = true;
+            bad = 'Unknown combinator ' + obj.combinator;
     }
     
     if (bad) {
         if (!Jaguar.surpressErrors)
-            throw new Error('Bad selector');
+            throw new Error(bad);
         elems = [];
     }
     
