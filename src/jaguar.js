@@ -444,43 +444,45 @@ for (i in Jaguar.matchCombinators) {
         Jaguar.combinators[i] = combinator(Jaguar.matchCombinators[i]);
 }
 
+function attr(test, noCheck) {
+    return function (elem, attr, value) {
+        var attribute = getAttribute(elem, attr);
+        return (noCheck ? true : attribute != null) && test(attribute, value);
+    };
+}
+
 Jaguar.attrs = {
-    '': function (elem, attr) {
-        return getAttribute(elem, attr) !== null;
-    },
+    '': attr(function (attr) {
+        return attr != null;
+    }, true),
     
-    '=': function (elem, attr, value) {
-        return getAttribute(elem, attr) === value;
-    },
+    '=': attr(function (attr, value) {
+        return attr === value;
+    }, true),
     
-    '!=': function (elem, attr, value) {
-        return getAttribute(elem, attr) !== value;
-    },
+    '!=': attr(function (attr, value) {
+        return attr !== value;
+    }, true),
     
-    '^=': function (elem, attr, value) {
-        var attribute = getAttribute(elem, attr);
-        return attribute && !attribute.indexOf(value);
-    },
+    '^=': attr(function (attr, value) {
+        return !attr.indexOf(value);
+    }),
     
-    '$=': function (elem, attr, value) {
-        var attribute = getAttribute(elem, attr);
-        return attribute && attribute.lastIndexOf(value) == attribute.length - value.length;
-    },
+    '$=': attr(function (attr, value) {
+        return attr.lastIndexOf(value) == attr.length - value.length;
+    }),
     
-    '*=': function (elem, attr, value) {
-        var attribute = getAttribute(elem, attr);
-        return attribute && attribute.indexOf(value) > -1;
-    },
+    '*=': attr(function (attr, value) {
+        return attr.indexOf(value) > -1;
+    }),
     
-    '|=': function (elem, attr, value) {
-        var attribute = getAttribute(elem, attr);
-        return attribute && (attribute === value || !attribute.indexOf(value + '-'));
-    },
+    '|=': attr(function (attr, value) {
+        return attr === value || !attr.indexOf(value + '-');
+    }),
     
-    '~=': function (elem, attr, value) {
-        var attribute = getAttribute(elem, attr);
-        return attribute && indexOf(attribute.split(' '), value) > -1;
-    }
+    '~=': attr(function (attr, value) {
+        return indexOf(attr.split(' '), value) > -1;
+    })
 };
 
 function getSiblings(elem) {
