@@ -217,7 +217,7 @@ Jaguar.search = function (selector, context) {
         return [];
     
     var parsed = Jaguar.parse(selector), i = 0, l = parsed.length, r = 0, len,
-    parts = [], results = [], hasDupe;
+    parts = [], results = [], hasDupe, removed = [];
     
     if (!l)
         return [];
@@ -242,10 +242,11 @@ Jaguar.search = function (selector, context) {
             return a.sourceIndex - b.sourceIndex;
         });
         if (hasDupe) {
-            for (i = 1, l = results.length; i < l; ++i) {
-                if (results[i] == results[i - 1])
-                    results.splice(i, 1);
+            for (i = 0, l = results.length; i < l; ++i) {
+                if (results[i] != results[i - 1])
+                    removed.push(results[i]);
             }
+            results = removed;
         }
     }
     
