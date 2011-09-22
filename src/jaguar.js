@@ -553,6 +553,12 @@ function positional(name, pos) {
 }
 
 Jaguar.pseudos = pseudos = {
+    'has': function (elem) {
+        for (var selector = '', args = arguments, i = 1, l = args.length; i < l; ++i)
+            selector += args[i].value;
+        return !!Jaguar.search(selector, elem).length;
+    },
+    
     'contains': function (elem, text) {
         return getAttribute(elem, 'text').indexOf(text.value) > -1;
     },
