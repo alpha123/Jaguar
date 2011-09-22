@@ -557,6 +557,13 @@ Jaguar.pseudos = pseudos = {
         return getAttribute(elem, 'text').indexOf(text.value) > -1;
     },
     
+    'matches': function (elem, regex) {
+        var parts = regex.value.split('/');
+        if (parts.length == 1)
+            parts = [0, parts[0], ''];
+        return RegExp(parts[1], parts[2]).test(getAttribute(elem, 'text'));
+    },
+    
     'not': function (elem) {
         for (var selector = '', args = arguments, i = 1, l = args.length; i < l; ++i)
             selector += args[i].value;
