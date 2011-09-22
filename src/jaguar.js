@@ -44,7 +44,7 @@ function (array, obj) {
     'for': 'htmlFor',
     'html': 'innerHTML',
     'style': function (elem) { return elem.style.cssText; },
-    'text': function (elem) { return elem.innerText || elem.textContent || ''; }
+    'text': function (elem) { return elem.textContent || elem.innerText || ''; }
 };
 
 Jaguar.features = features;
