@@ -52,7 +52,6 @@ Jaguar.features = features;
 Jaguar.filter = filter;
 Jaguar.indexOf = indexOf;
 
-Jaguar.fixAttributes = {'for': 'htmlFor', 'class': 'className'};
 function getAttribute(elem, attr) {
     if (fixAttrs[attr]) {
         var value = typeof fixAttrs[attr] == 'function' ? fixAttrs[attr](elem) : elem[fixAttrs[attr]];
@@ -555,7 +554,7 @@ function positional(name, pos) {
 
 Jaguar.pseudos = pseudos = {
     'contains': function (elem, text) {
-        return (elem.innerText || elem.textContent).indexOf(text.value) > -1;
+        return getAttribute(elem, 'text').indexOf(text.value) > -1;
     },
     
     'not': function (elem) {
