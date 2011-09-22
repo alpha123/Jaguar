@@ -10,7 +10,7 @@ hasOwn = {}.hasOwnProperty, features = (function (doc) {
     
     // IE lt 8 getElementById also gets an element with that name
     test.name = 'test';
-    doc.firstChild ? doc.firstChild.appendChild(test) : doc.appendChild(test);
+    (doc.firstChild || doc).appendChild(test);
     features.brokenId = !!doc.getElementById('test');
     
     // IE lt 9 includes comment nodes in the children array
