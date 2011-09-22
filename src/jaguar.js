@@ -80,7 +80,7 @@ Jaguar.tokenize = function (selector) {
             (c > '/' && c < ':') || // 0-9
             (c > '@' && c < '[') || // A-Z
             (c > '`' && c < '{') || // a-z
-            c === '-' || c === '_'
+            c == '-' || c == '_'
         );
     }
     
@@ -174,7 +174,7 @@ Jaguar.parse = function (selector) {
                 hasOp ? tokens[i += 2].value : undefined]});
                 ++i;
             }
-            else if (val === ':') {
+            else if (val == ':') {
                 if (!tokens[i + 1])
                     return [];
                 hasOp = tokens[i + 2] && tokens[i + 2].value == '(';
