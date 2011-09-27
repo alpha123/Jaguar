@@ -603,10 +603,7 @@ Jaguar.pseudos = pseudos = {
             bros = this;
         
         if (!expr.length)
-            expr = ['n'];
-        
-        if (typeof expr[0] == 'string') // In case of :nth-child("2n+1")
-            expr = Jaguar.tokenize(expr[0]);
+            expr = [{value: 'n'}];
         
         val = expr[0].value;
         
@@ -634,7 +631,7 @@ Jaguar.pseudos = pseudos = {
     
     'nth-last-child': function (elem) {
         return pseudos['nth-child'].apply(slice.call(getSiblings(elem)).reverse(), arguments);
-        // Convert to an array and then reverse because reverse.call(getSiblings(elem)) kills performance
+        // Convert to an array and then reverse because reverse.call(getSiblings(elem)) kills performance. See http://jsperf.com/slice-vs-reverse/2.
     },
     
     'nth-of-type': function (elem) {
