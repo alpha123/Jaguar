@@ -548,7 +548,7 @@ function parseNth(expr) {
 
 function positional(name, pos) {
     return function (elem) {
-        return pseudos[name](elem, pos);
+        return pseudos[name](elem, {value: pos});
     };
 }
 
