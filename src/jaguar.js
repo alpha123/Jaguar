@@ -353,8 +353,6 @@ Jaguar.match = function (elem, selector) {
         return false;
     
     var parsed = Jaguar.parse(selector), result = false, i = 0, l = parsed.length;
-    if (!l)
-        return false;
     
     for (; i < l; ++i)
         result = result || Jaguar.evaluateMatch(parsed[i], elem);
