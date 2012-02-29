@@ -69,8 +69,6 @@ Jaguar.cacheSize = 50;
 Jaguar.surpressErrors = false;
 
 Jaguar.tokenize = function (selector) {
-    selector += '';
-    
     var chars = selector.split(''), current = chars[0], i = 0, j, l, prev, next, quote, acc,
     tested, forceIdent, op = 'op', ident = 'ident', single = {'(': 1, ')': 1, '[': 1, ']': 1},
     quotes = {'"': 1, "'": 1}, tokens = [];
@@ -240,6 +238,7 @@ Jaguar.search = function (selector, context) {
             
             return a.sourceIndex - b.sourceIndex;
         });
+        
         if (hasDupe) {
             for (i = 0, l = results.length; i < l; ++i) {
                 if (results[i] != results[i - 1])
