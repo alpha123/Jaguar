@@ -66,8 +66,6 @@ Jaguar.getAttribute = getAttribute;
 Jaguar.cache = [];
 Jaguar.cacheSize = 50;
 
-Jaguar.surpressErrors = false;
-
 Jaguar.tokenize = function (selector) {
     var chars = selector.split(''), current = chars[0], i = 0, j, l, prev, next, quote, acc,
     tested, forceIdent, op = 'op', ident = 'ident', single = {'(': 1, ')': 1, '[': 1, ']': 1},
@@ -344,11 +342,8 @@ Jaguar.evaluateSearch = function (objects, context) {
             bad = 'Unknown combinator ' + obj.combinator;
     }
     
-    if (bad) {
-        if (!Jaguar.surpressErrors)
-            throw new Error(bad);
-        elems = [];
-    }
+    if (bad)
+        throw new Error(bad);
     
     return elems;
 };
