@@ -644,6 +644,9 @@ Jaguar.noConflict = function () {
     return Jaguar;
 };
 
-window.Jaguar = Jaguar;
+if (typeof window.define == 'function' && define.amd)
+    define(function () { return Jaguar; });
+else
+    window.Jaguar = Jaguar;
 
 })(this, document, parseInt, isNaN);
