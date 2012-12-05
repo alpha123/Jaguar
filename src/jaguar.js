@@ -212,7 +212,7 @@ Jaguar.search = function (selector, context) {
         return [];
     
     var parsed = Jaguar.parse(selector), i = 0, l = parsed.length, r = 0, len,
-    parts = [], results = [], hasDupe, removed = [];
+    parts = [], results = [], hasDupe, removed = [], p;
     
     if (!l)
         return [];
